@@ -1,3 +1,7 @@
 Library
 ProjectSettings
 Temp
+obj
+*.userprefs
+*.csproj
+*.sln
