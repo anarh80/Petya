@@ -61,7 +61,7 @@ public class FindItemsKeyword : MonoBehaviour {
 
 		Debug.Log(ss);
 
-		FindByKeyword itemList = JsonConvert.DeserializeObject<FindByKeyword>(ss);
+		rFindByKeyword itemList = JsonConvert.DeserializeObject<rFindByKeyword>(ss);
 
 		int countItem = itemList.findItemsByKeywordsResponse [0].searchResult [0].item.Count();
 
