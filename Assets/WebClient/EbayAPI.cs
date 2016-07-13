@@ -26,7 +26,7 @@ public class EbayAPI : MonoBehaviour {
 
 	public Text resultText;
 
-	string APPNAME = "Alexandr-bf11-4dac-8d4b-413af2eec067";
+
 
 	public void FindItemsByKeyword( string keyword ){
 		HTTPRequest request = new HTTPRequest(new Uri("http://svcs.ebay.com/services/search/FindingService/v1?"),
@@ -36,7 +36,7 @@ public class EbayAPI : MonoBehaviour {
 		request.AddHeader ("X-EBAY-SOA-OPERATION-NAME", "findItemsByKeywords");
 		request.AddHeader ("X-EBAY-SOA-SERVICE-VERSION", "1.13.0");
 		request.AddHeader ("X-EBAY-SOA-GLOBAL-ID", "EBAY-US");
-		request.AddHeader ("X-EBAY-SOA-SECURITY-APPNAME", APPNAME);
+		request.AddHeader ("X-EBAY-SOA-SECURITY-APPNAME", AppID);
 		request.AddHeader ("X-EBAY-SOA-REQUEST-DATA-FORMAT", "XML");
 		request.AddHeader ("X-EBAY-SOA-RESPONSE-DATA-FORMAT", "JSON");
 
@@ -90,30 +90,29 @@ public class EbayAPI : MonoBehaviour {
 
 	//TODO: 
 	public void LoadTree(){
-		HTTPRequest request = new HTTPRequest(new Uri("http://svcs.ebay.com/services/search/FindingService/v1?"),
+		HTTPRequest request = new HTTPRequest(new Uri("https://api.ebay.com/ws/api.dll"),
 			HTTPMethods.Post, OnGetTreeFinished);
 
-		request.AddHeader ("X-EBAY-SOA-SERVICE-NAME", "FindingService");
-		request.AddHeader ("X-EBAY-SOA-OPERATION-NAME", "findItemsByKeywords");
-		request.AddHeader ("X-EBAY-SOA-SERVICE-VERSION", "1.13.0");
-		request.AddHeader ("X-EBAY-SOA-GLOBAL-ID", "EBAY-US");
-		request.AddHeader ("X-EBAY-SOA-SECURITY-APPNAME", APPNAME);
-		request.AddHeader ("X-EBAY-SOA-REQUEST-DATA-FORMAT", "XML");
-		request.AddHeader ("X-EBAY-SOA-RESPONSE-DATA-FORMAT", "JSON");
+		request.AddHeader ("X-EBAY-API-COMPATIBILITY-LEVEL", "971");
+		request.AddHeader ("X-EBAY-API-DEV-NAME", DevID);
+		request.AddHeader ("X-EBAY-API-APP-NAME", AppID);
+		request.AddHeader ("X-EBAY-API-CERT-NAME", CertID);
+		request.AddHeader ("X-EBAY-API-SITEID", "0");
+		request.AddHeader ("X-EBAY-API-CALL-NAME", "GetCategories");
+
+		//request.AddHeader ("X-EBAY-SOA-REQUEST-DATA-FORMAT", "XML"); 
+		//request.AddHeader ("X-EBAY-SOA-RESPONSE-DATA-FORMAT", "JSON");
 
 		string xmlString = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-			+ "<findItemsByKeywordsRequest xmlns=\"http://www.ebay.com/marketplace/search/v1/services\"><keywords>"
-			+ "keyword"
-			+ "</keywords>"
-			+ "<paginationInput>"
-			+ "<entriesPerPage>"
-			+ "5" // per page
-			+ "</entriesPerPage>"
-			+ "<pageNumber>"
-			+ "1" // page number
-			+ "</pageNumber>"
-			+ "</paginationInput>"
-			+ "</findItemsByKeywordsRequest>";
+			+ "<GetCategoriesRequest xmlns=\"urn:ebay:apis:eBLBaseComponents\">"
+			+ "<RequesterCredentials>"
+			+ "<eBayAuthToken>"
+			+ Token
+			+ "</eBayAuthToken>"
+			+ "</RequesterCredentials>"
+			+ "<CategorySiteID>0</CategorySiteID>"
+			+ "<DetailLevel>ReturnAll</DetailLevel>"
+			+ "</GetCategoriesRequest>​";
 		byte[] xmlByte = Encoding.UTF8.GetBytes(xmlString);
 
 		request.RawData = xmlByte;
@@ -121,6 +120,17 @@ public class EbayAPI : MonoBehaviour {
 		request.Send();
 
 	}
+	/*
+	<?xml version="1.0" encoding="utf-8"?>
+		<GetCategoriesRequest xmlns="urn:ebay:apis:eBLBaseComponents">
+		<RequesterCredentials>
+		<eBayAuthToken>ABC...123</eBayAuthToken>
+		</RequesterCredentials>
+		
+		<CategorySiteID>0</CategorySiteID>
+		<DetailLevel>ReturnAll</DetailLevel>
+		</GetCategoriesRequest> /**/
+
 
 	void OnGetTreeFinished(HTTPRequest request, HTTPResponse response)
 	{
@@ -128,9 +138,9 @@ public class EbayAPI : MonoBehaviour {
 		Debug.Log("Save to file");
 
 		#if UNITY_IOS || UNITY_ANDROID
-		File.WriteAllBytes(Application.persistentDataPath + "/fkeyword.txt", response.Data);
+		File.WriteAllBytes(Application.persistentDataPath + "/gettree.txt", response.Data);
 		#else
-		File.WriteAllBytes(Application.dataPath + "/fkeyword.txt", response.Data);
+		File.WriteAllBytes(Application.dataPath + "/gettree.txt", response.Data);
 		#endif
 		/**/
 
@@ -140,13 +150,8 @@ public class EbayAPI : MonoBehaviour {
 		//resultString = response.DataAsText;
 
 
-		Debug.Log("Serrialize to <rFindByKeyword>");
-		rFindByKeyword itemList = JsonConvert.DeserializeObject<rFindByKeyword>(response.DataAsText);
-
-
-
-
 	}
 
 
 }
+
