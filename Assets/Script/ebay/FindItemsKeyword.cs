@@ -13,7 +13,7 @@ public class FindItemsKeyword : MonoBehaviour {
 
 	public List<ItemInList> itemL;
 
-	//public List<Text> tt;
+
 
     HTTPRequest request;
 
