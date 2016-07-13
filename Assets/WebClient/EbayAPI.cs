@@ -153,5 +153,23 @@ public class EbayAPI : MonoBehaviour {
 	}
 
 
+	public void SeeTree(){
+		i = 0;
+		see = true;
+	}
+
+	bool see = false;
+	int i;
+
+	void Update(){
+
+		if (see) {
+			resultText.text += 
+			Tree.Instance.tree.getCategoriesResponse.CategoryArray.Category [i].CategoryID
+			+ " " + Tree.Instance.tree.getCategoriesResponse.CategoryArray.Category [i].CategoryName + " ";
+			i++;
+		}
+	}
+
 }
 
