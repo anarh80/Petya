@@ -26,7 +26,7 @@ public class EbayAPI : MonoBehaviour {
 
 	public Text resultText;
 
-	string APPNAME = "Alexandr-bf11-4dac-8d4b-413af2eec067";
+
 
 	public void FindItemsByKeyword( string keyword ){
 		HTTPRequest request = new HTTPRequest(new Uri("http://svcs.ebay.com/services/search/FindingService/v1?"),
@@ -36,7 +36,7 @@ public class EbayAPI : MonoBehaviour {
 		request.AddHeader ("X-EBAY-SOA-OPERATION-NAME", "findItemsByKeywords");
 		request.AddHeader ("X-EBAY-SOA-SERVICE-VERSION", "1.13.0");
 		request.AddHeader ("X-EBAY-SOA-GLOBAL-ID", "EBAY-US");
-		request.AddHeader ("X-EBAY-SOA-SECURITY-APPNAME", APPNAME);
+		request.AddHeader ("X-EBAY-SOA-SECURITY-APPNAME", AppID);
 		request.AddHeader ("X-EBAY-SOA-REQUEST-DATA-FORMAT", "XML");
 		request.AddHeader ("X-EBAY-SOA-RESPONSE-DATA-FORMAT", "JSON");
 
@@ -46,10 +46,10 @@ public class EbayAPI : MonoBehaviour {
 			+ "</keywords>"
 			+ "<paginationInput>"
 			+ "<entriesPerPage>"
-			+ "5" // per page
+			+ "5" // int per page
 			+ "</entriesPerPage>"
 			+ "<pageNumber>"
-			+ "1" // page number
+			+ "1" // int page number
 			+ "</pageNumber>"
 			+ "</paginationInput>"
 			+ "</findItemsByKeywordsRequest>";
@@ -97,7 +97,7 @@ public class EbayAPI : MonoBehaviour {
 		request.AddHeader ("X-EBAY-SOA-OPERATION-NAME", "findItemsByKeywords");
 		request.AddHeader ("X-EBAY-SOA-SERVICE-VERSION", "1.13.0");
 		request.AddHeader ("X-EBAY-SOA-GLOBAL-ID", "EBAY-US");
-		request.AddHeader ("X-EBAY-SOA-SECURITY-APPNAME", APPNAME);
+		request.AddHeader ("X-EBAY-SOA-SECURITY-APPNAME", AppID);
 		request.AddHeader ("X-EBAY-SOA-REQUEST-DATA-FORMAT", "XML");
 		request.AddHeader ("X-EBAY-SOA-RESPONSE-DATA-FORMAT", "JSON");
 
