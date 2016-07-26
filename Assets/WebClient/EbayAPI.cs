@@ -28,7 +28,7 @@ public class EbayAPI : MonoBehaviour {
 
 
 
-	public void FindItemsByKeyword( string keyword ){
+	public void FindItemsByKeyword( string keyword){
 		HTTPRequest request = new HTTPRequest(new Uri("http://svcs.ebay.com/services/search/FindingService/v1?"),
 			HTTPMethods.Post, OnFindItemsByKeywordFinished);
 
@@ -58,6 +58,7 @@ public class EbayAPI : MonoBehaviour {
 		request.RawData = xmlByte;
 
 		request.Send();
+
 	}
 
 
@@ -83,12 +84,9 @@ public class EbayAPI : MonoBehaviour {
 		Debug.Log("Serrialize to <rFindByKeyword>");
 		rFindByKeyword itemList = JsonConvert.DeserializeObject<rFindByKeyword>(response.DataAsText);
 
-
-
-
 	}
 
-	//TODO: 
+
 	public void LoadTree(){
 		HTTPRequest request = new HTTPRequest(new Uri("https://api.ebay.com/ws/api.dll"),
 			HTTPMethods.Post, OnGetTreeFinished);
@@ -120,17 +118,6 @@ public class EbayAPI : MonoBehaviour {
 		request.Send();
 
 	}
-	/*
-	<?xml version="1.0" encoding="utf-8"?>
-		<GetCategoriesRequest xmlns="urn:ebay:apis:eBLBaseComponents">
-		<RequesterCredentials>
-		<eBayAuthToken>ABC...123</eBayAuthToken>
-		</RequesterCredentials>
-		
-		<CategorySiteID>0</CategorySiteID>
-		<DetailLevel>ReturnAll</DetailLevel>
-		</GetCategoriesRequest> /**/
-
 
 	void OnGetTreeFinished(HTTPRequest request, HTTPResponse response)
 	{
@@ -165,11 +152,16 @@ public class EbayAPI : MonoBehaviour {
 
 		if (see) {
 			resultText.text += 
-			Tree.Instance.tree.getCategoriesResponse.CategoryArray.Category [i].CategoryID
-			+ " " + Tree.Instance.tree.getCategoriesResponse.CategoryArray.Category [i].CategoryName + " ";
+			Tree.Instance.tree[i].CategoryID
+			+ " " + Tree.Instance.tree[i].CategoryName + " ";
 			i++;
 		}
 	}
+
+
+
+
+
 
 }
 
