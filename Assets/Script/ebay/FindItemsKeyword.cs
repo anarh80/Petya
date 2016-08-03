@@ -23,7 +23,7 @@ public class FindItemsKeyword : MonoBehaviour {
         if (key.text.Length > 2) {
             StartCoroutine(SendRequest(UrlFindItems(key.text)));
         }
-        else { PageManager.Instance.ChangePage(0); }
+//        else { PageManager.Instance.ChangePage(0); }
 
         
     }

@@ -19,9 +19,9 @@ public class Tree : MonoBehaviour {
 
 	rTree rtree;
 
-	public List<rTree.Category> GetCategory(string parent = ""){
+	public List<rTree.Category> GetCategoryList(string parent = ""){
 		List<rTree.Category> result = new List<rTree.Category> ();
-		if (parent == "") {
+		if ( string.IsNullOrEmpty( parent ) ) {
 			foreach (rTree.Category rc in tree) {
 				if (rc.CategoryID == rc.CategoryParentID)
 					result.Add (rc);
@@ -34,5 +34,18 @@ public class Tree : MonoBehaviour {
 		}
 		return result;
 	}
+
+
+	public rTree.Category GetCategory(string id){
+		if (!string.IsNullOrEmpty (id)) {
+			foreach (rTree.Category rc in tree) {
+				if (id == rc.CategoryID) {
+					return rc;
+				}
+			}
+		}
+		return null;
+	}
+
 
 }
