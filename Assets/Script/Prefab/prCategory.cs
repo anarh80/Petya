@@ -31,7 +31,7 @@ public class prCategory : prBase {
 
 	void CreateSubcategory(){
 		for (int i = 0; i < subcategory.Count; i++) {
-			OM.Inst.Create (0, subcategory [i].CategoryID, transform, Geometry.Inst.GetPosition(i), false);
+			OM.Inst.Create (0, subcategory [i].CategoryID, transform, Geometry.Inst.GetPosition(i,subcategory.Count), false);
 		}
 	}
 
