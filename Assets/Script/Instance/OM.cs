@@ -8,14 +8,12 @@ public class OM : MonoBehaviour {
 	void Awake(){if (_instance == null)_instance = this;}
 	// end Instance
 
-	public List<GameObject> prefab;
-
-
 	List<TurnCreateObject> TurnCreate = new List<TurnCreateObject>();
 
-	public void Create(int prefabNum, string unitID, Transform parent, Vector3 position, bool insert = false){
+	public void Create(string prefabName, string unitID, Transform parent, Vector3 position, bool insert = false){
 		TurnCreateObject turn = new TurnCreateObject ();
-		turn.prefabNum = prefabNum;
+
+		turn.prefabName = prefabName;
 		turn.unitID = unitID;
 
 		if (parent == null) {
@@ -41,23 +39,26 @@ public class OM : MonoBehaviour {
 			currentTurn = TurnCreate [0];
 			TurnCreate.Remove (currentTurn);
 
-			currentGO =(GameObject)Instantiate (prefab[currentTurn.prefabNum]);
+			GameObject prefab = Resources.Load (currentTurn.prefabName) as GameObject;
+
+			currentGO =(GameObject)Instantiate (prefab);
 			currentGO.transform.SetParent (currentTurn.parent);
 			currentGO.transform.localScale = Vector3.one;
 			currentGO.transform.localPosition = currentTurn.position;
-			currentGO.transform.localRotation = currentTurn.rotation;
-			currentGO.GetComponent<prBase> ().InitUnit (currentTurn.unitID);
+			//currentGO.transform.localRotation = currentTurn.rotation;
+			//currentGO.transform.LookAt(currentTurn.parent);
+			currentGO.GetComponent<prBase> ().unitID = currentTurn.unitID;
 		}
 	}
 
 }
 
 public class TurnCreateObject {
-	public int prefabNum;
+	public string prefabName;
 	public string unitID;
 	public Transform parent;
 	public Vector3 position;
-	public Quaternion rotation;
+	//public Quaternion rotation;
 }
 
 public enum Prefab {
