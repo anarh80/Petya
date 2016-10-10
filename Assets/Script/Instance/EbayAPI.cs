@@ -12,13 +12,17 @@ using Newtonsoft.Json;
 
 
 public class EbayAPI : MonoBehaviour {
+	static EbayAPI _instance;
+	public static EbayAPI Inst{get {return _instance;}}
+	void Awake(){if (_instance == null)_instance = this;}
+	// end Instance
 
-	string DevID = "77c57a28-8259-492b-8f1c-13056824569b";
-	string AppID = "Alexandr-bf11-4dac-8d4b-413af2eec067";
-	string CertID = "f72f2f6e-4693-44f6-bf72-25413544f077";
+	public string DevID = "77c57a28-8259-492b-8f1c-13056824569b";
+	public string AppID = "Alexandr-bf11-4dac-8d4b-413af2eec067";
+	public string CertID = "f72f2f6e-4693-44f6-bf72-25413544f077";
 
 	// Token Expires: Fri, 29 Dec 2017 08:47:11 GMT
-	string Token = "AgAAAA**AQAAAA**aAAAAA**Dxd+Vw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wDmYumC5eCoQ+dj6x9nY+seQ**j/wAAA**AAMAAA**fdhYBb5awDln09VPsXNzB3K+M1+2IqyLHfhE/1Rji/daPgHJut3uf9tkw6iBjVmEkEjKbN24UhvL7h3TMq1yuthDXz+6jFOmr2Jm5UsaznNILF/uV7HcMG23jd0EFO8UVCuU5DpDcvpSUkHW6zZKO2hHuKSIB+pzExNixYkfL6v4s8DDgzfCBDoKgAkfr3pZw19YwiWW7AozM32dBSbrHeMzgXlfEU+/Dh1iLRatpsYR/TzfzHT6WMx+3am8Ufrui1I+NTlkcdPhVc5iETz6kZ2wTX0HOLn3q9HOOO4wEDecsfxcR9fo6D8IFD9ACb+aV0u0/ACjcAeIpLSN77HQmlkYv9v3YJBhZQsQ6vCHaVYVwxtYgore/8vnTIYMOhar7xHzwuHZX85A79Z0F0yFmcl1SCOiq+q6j2FTDXuf6Jz2cfspogfztzzHjzIrHAUJGfI+hGsAbqKEE+GpweJj5dw1rUP+94hmmz1Zj6u+bFE8M3YESMh02I5MUFk2N3rIf9oVc4ElNkQSnRC46TsyNNpLkEp89swi1Kjydl1TMBcrSJkucXTt1uZK2O2w9s+qyDTBp7WDm0Zrayz9q0kG08mM0qHOloDZ/5/vwbICYKr6DNcqdh/gV27ztug9BRUmvygq1iiqCb/8bOaznQX6fRrMeDZzp6rwCdwG7VbuT6nvIBGbXl0RiEes3NSUR3G6/6Hf/9d4BEEvyaKKKujBa/XAH8tEVp4QTUJ6a1pQ3v6sZ03gStjT5cMtMdNGwxAB";
+	public string Token = "AgAAAA**AQAAAA**aAAAAA**Dxd+Vw**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wDmYumC5eCoQ+dj6x9nY+seQ**j/wAAA**AAMAAA**fdhYBb5awDln09VPsXNzB3K+M1+2IqyLHfhE/1Rji/daPgHJut3uf9tkw6iBjVmEkEjKbN24UhvL7h3TMq1yuthDXz+6jFOmr2Jm5UsaznNILF/uV7HcMG23jd0EFO8UVCuU5DpDcvpSUkHW6zZKO2hHuKSIB+pzExNixYkfL6v4s8DDgzfCBDoKgAkfr3pZw19YwiWW7AozM32dBSbrHeMzgXlfEU+/Dh1iLRatpsYR/TzfzHT6WMx+3am8Ufrui1I+NTlkcdPhVc5iETz6kZ2wTX0HOLn3q9HOOO4wEDecsfxcR9fo6D8IFD9ACb+aV0u0/ACjcAeIpLSN77HQmlkYv9v3YJBhZQsQ6vCHaVYVwxtYgore/8vnTIYMOhar7xHzwuHZX85A79Z0F0yFmcl1SCOiq+q6j2FTDXuf6Jz2cfspogfztzzHjzIrHAUJGfI+hGsAbqKEE+GpweJj5dw1rUP+94hmmz1Zj6u+bFE8M3YESMh02I5MUFk2N3rIf9oVc4ElNkQSnRC46TsyNNpLkEp89swi1Kjydl1TMBcrSJkucXTt1uZK2O2w9s+qyDTBp7WDm0Zrayz9q0kG08mM0qHOloDZ/5/vwbICYKr6DNcqdh/gV27ztug9BRUmvygq1iiqCb/8bOaznQX6fRrMeDZzp6rwCdwG7VbuT6nvIBGbXl0RiEes3NSUR3G6/6Hf/9d4BEEvyaKKKujBa/XAH8tEVp4QTUJ6a1pQ3v6sZ03gStjT5cMtMdNGwxAB";
 
 	public int countPerResponce = 20;
 

@@ -8,6 +8,8 @@ public class GhostFreeRoamCamera : MonoBehaviour
 
     public bool allowMovement = true;
     public bool allowRotation = true;
+	public bool allowAutoRotation = true;
+	public float autoRotation = 0.1f;
 
     public KeyCode forwardButton = KeyCode.W;
     public KeyCode backwardButton = KeyCode.S;
@@ -33,7 +35,7 @@ public class GhostFreeRoamCamera : MonoBehaviour
 
     private void Update()
     {
-        if (allowMovement)
+		if (allowMovement)
         {
             bool lastMoving = moving;
             Vector3 deltaPosition = Vector3.zero;
@@ -61,9 +63,18 @@ public class GhostFreeRoamCamera : MonoBehaviour
         if (allowRotation)
         {
             Vector3 eulerAngles = transform.eulerAngles;
-            eulerAngles.x += -Input.GetAxis("Mouse Y") * 359f * cursorSensitivity;
-            eulerAngles.y += Input.GetAxis("Mouse X") * 359f * cursorSensitivity;
-            transform.eulerAngles = eulerAngles;
+			float x = -Input.GetAxis ("Mouse Y") * 359f * cursorSensitivity;
+			float y = Input.GetAxis ("Mouse X") * 359f * cursorSensitivity;
+			if (x * x + y * y > autoRotation) {
+				eulerAngles.x += x;
+				eulerAngles.y += y;
+				transform.eulerAngles = eulerAngles;
+			} else {
+				//eulerAngles = eulerAngles * 0.9f;
+				eulerAngles.x += x;
+				eulerAngles.y += y;
+				transform.eulerAngles = eulerAngles;
+			}
         }
 
         if (cursorToggleAllowed)

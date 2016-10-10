@@ -12,8 +12,17 @@ public class prItem : prBase {
 	public Text title;
 	public Text price;
 
+	rFindAdvanced.Item item;
+
 	void Start(){
-		//StartCoroutine(SendRequestImage());
+		transform.localRotation = Quaternion.identity;
+		if (unitID == "") {
+			
+		} else {
+			item = JsonConvert.DeserializeObject<rFindAdvanced.Item> (unitID);
+			if (item != null)
+				StartCoroutine (SendRequestImage (item.galleryURL [0]));
+		}
 	}
 
 	IEnumerator SendRequestImage(string url)
@@ -27,6 +36,10 @@ public class prItem : prBase {
 	void RequestImageRecived(Texture2D image2D)
 	{
 		image.texture = image2D;
+	}
+
+	public override void PressThis (){
+		//if (unitID == "") GetComponentInParent<prCategory> ().LoadItems ();
 	}
 
 }

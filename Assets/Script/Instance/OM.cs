@@ -60,8 +60,3 @@ public class TurnCreateObject {
 	public Vector3 position;
 	//public Quaternion rotation;
 }
-
-public enum Prefab {
-	Category,
-	Item
-}
