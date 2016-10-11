@@ -64,7 +64,7 @@ public class EbayAPI : MonoBehaviour {
 		
 		Debug.Log("Save to file");
 
-		#if UNITY_IOS || UNITY_ANDROID
+		/*#if UNITY_IOS || UNITY_ANDROID
 		File.WriteAllBytes(Application.persistentDataPath + "/fkeyword.txt", response.Data);
 		#else
 		File.WriteAllBytes(Application.dataPath + "/fkeyword.txt", response.Data);
@@ -118,7 +118,7 @@ public class EbayAPI : MonoBehaviour {
 
 		Debug.Log("Save to file");
 
-		#if UNITY_IOS || UNITY_ANDROID
+		/*#if UNITY_IOS || UNITY_ANDROID
 		File.WriteAllBytes(Application.persistentDataPath + "/gettree.txt", response.Data);
 		#else
 		File.WriteAllBytes(Application.dataPath + "/gettree.txt", response.Data);

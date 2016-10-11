@@ -107,12 +107,12 @@ public class prCategory : prBase {
 	void OnFindItemsByKeywordFinished(HTTPRequest request, HTTPResponse response)
 	{
 
-		Debug.Log("Save to file - "+ Application.persistentDataPath + "/fkeyword.txt");
+		/*Debug.Log("Save to file - "+ Application.persistentDataPath + "/fkeyword" + category.CategoryID + ".txt");
 
 		#if UNITY_IOS || UNITY_ANDROID
-		File.WriteAllBytes(Application.persistentDataPath + "/fkeyword.txt", response.Data);
+		File.WriteAllBytes(Application.persistentDataPath + "/fkeyword"+category.CategoryID+".txt", response.Data);
 		#else
-		File.WriteAllBytes(Application.dataPath + "/fkeyword.txt", response.Data);
+		File.WriteAllBytes(Application.dataPath + "/fkeyword"+category.CategoryID+".txt", response.Data);
 		#endif
 		/**/
 
