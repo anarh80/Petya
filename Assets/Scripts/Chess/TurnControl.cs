@@ -18,7 +18,8 @@ public class TurnControl : MonoBehaviour {
 
 		public GameObject variant;
 
-		public float distance = 16f;
+	public float distance = 16f;
+	public int size = 8;
 
 		public Transform desk;
 
@@ -30,11 +31,15 @@ public class TurnControl : MonoBehaviour {
 				TurnComplete (false);
 	}
 	
-		public void TurnComplete(bool nt){
-				turn = !nt;
-				image.color = turn ? clrWhite : clrBlack;
-				activateFigure = null;
+	public void TurnComplete(bool nt){
+		turn = !nt;
+		image.color = turn ? clrWhite : clrBlack;
+		activateFigure = null;
+		BaseFigure[] figures = desk.GetComponentsInChildren<BaseFigure> ();
+		foreach (BaseFigure bf in figures) {
+			bf.StartTurn (turn);
 		}
+	}
 
 		public void UnActiveFigures (){
 				if (activateFigure != null) {

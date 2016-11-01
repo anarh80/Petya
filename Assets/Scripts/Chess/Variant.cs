@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class Variant : MonoBehaviour {
-		BaseFigure baseFigure;
+	
+	public BaseFigure baseFigure;
+	public string baf;
 		public void Init(BaseFigure bf){
 				baseFigure = bf;
 		}

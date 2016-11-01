@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Kon : BaseFigure {
 
-	override public int ShowVariants (){
+	override public int ShowVariants (bool create = true){
 		int count = 0;
 		Ray ray;
 		RaycastHit hit;
@@ -16,14 +16,16 @@ public class Kon : BaseFigure {
 				BaseFigure bf = hit.transform.GetComponent<BaseFigure> ();
 				if (bf != null) {
 					if (bf.side != side) {
-						bf.ActivateTarget ();
-						kill.Add (bf);
-						count++;
+						if (!kill.Contains (bf)) {
+							if (create)bf.ActivateTarget ();
+							kill.Add (bf);
+							count++;
+						}
 					}
 				}
 
 			} else {
-				CreateVariant (dir[i]);
+				if (create)CreateVariant (dir[i]);
 				count++;
 			}
 

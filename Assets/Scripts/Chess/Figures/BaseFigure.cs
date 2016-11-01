@@ -3,24 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class BaseFigure : MonoBehaviour {
-		public bool side;
-		public bool first = true;
-		public bool targetActive = false;
-		public GameObject activator;
-		public GameObject target;
+	public bool side;
 
-		public List<Variant> variant = new List<Variant> ();
-		public List<BaseFigure> kill = new List<BaseFigure> ();
-		// Use this for initialization
-		void Start () {
-				activator.SetActive (true);
-				target.SetActive (false);
-				first = true;
-				targetActive = false;
-				variant.Clear ();
-				kill.Clear ();
-		}
-	
+	public string baf;
+
+	public bool first = true;
+	public bool targetActive = false;
+	public GameObject activator;
+	public GameObject target;
+
+	public List<Variant> variant = new List<Variant> ();
+	public List<BaseFigure> kill = new List<BaseFigure> ();
+	// Use this for initialization
+	void Start () {
+		transform.rotation = side ? Quaternion.Euler (0, 180, 0) : Quaternion.identity;
+		UnActivateFigure ();
+		UnActivateTarget ();
+		variant.Clear ();
+		kill.Clear ();
+	}
+
 		void OnMouseUpAsButton(){
 				if (side == TurnControl.Instance.turn) {
 						//Debug.Log ("Tap");
@@ -50,26 +52,27 @@ public class BaseFigure : MonoBehaviour {
 		}
 
 
-		/// <summary>
-		/// Shows the variants.
-		/// </summary>
-		virtual public int ShowVariants (){
-				return 0;
-		}
+	/// <summary>
+	/// Shows the variants. create - 
+	/// </summary>
+	virtual public int ShowVariants (bool create = true){
+		return 0;
+	}
 
 		public void UnActivateFigure (){
 				activator.SetActive (true);
 				ClearVariants ();
 		}
 
-		public void CreateVariant (Vector3 dir){
-				GameObject go = Instantiate (TurnControl.Instance.variant,
-						transform.position + transform.TransformDirection (dir * TurnControl.Instance.distance),
-						Quaternion.identity) as GameObject;
-				Variant vr = go.GetComponent<Variant> ();
-				vr.Init (this);
-				variant.Add (vr);
-		}
+	public void CreateVariant (Vector3 dir, string baf = ""){
+		GameObject go = Instantiate (TurnControl.Instance.variant,
+			                transform.position + transform.TransformDirection (dir * TurnControl.Instance.distance),
+			                Quaternion.identity) as GameObject;
+		Variant vr = go.GetComponent<Variant> ();
+		vr.baf = baf;
+		vr.Init (this);
+		variant.Add (vr);
+	}
 
 		public void ClearVariants (){
 				foreach (Variant vr in variant) {
@@ -83,13 +86,17 @@ public class BaseFigure : MonoBehaviour {
 
 		}
 
-		public void MoveToVariant (Variant vr){
+	/// <summary>
+	/// Moves to variant.
+	/// </summary>
+	/// <param name="vr">Vr.</param>
+	virtual public void MoveToVariant (Variant vr){
 				first = false;
 				transform.position = vr.transform.position;
 				ClearVariants ();
 				UnActivateFigure ();
 				TurnControl.Instance.TurnComplete (side);
-		}
+	}
 
 		public void ActivateTarget(){
 				targetActive = true;
@@ -113,7 +120,7 @@ public class BaseFigure : MonoBehaviour {
 		/// <summary>
 		/// Ends the turn.
 		/// </summary>
-		virtual public void EndTurn(bool sd){
+		virtual public void StartTurn(bool sd){
 				
 		}
 
