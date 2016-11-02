@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Korol : BaseFigure {
+
+	public Transform ghost;
 
 	override public int ShowVariants (bool create = true){
 		int count = 0;
@@ -18,7 +21,7 @@ public class Korol : BaseFigure {
 					if (bf != null) {
 						if (bf.side != side) {
 							
-						if (create)bf.ActivateTarget ();
+							if (create) bf.ActivateTarget ();
 								kill.Add (bf);
 								count++;
 							
@@ -46,6 +49,34 @@ public class Korol : BaseFigure {
 		res.Add (Vector3.back + Vector3.right);
 		res.Add (Vector3.back + Vector3.left);
 		return res;
+	}
+
+	override public void StartTurn (bool sd){
+		if (side == sd) {
+			bool check = false;
+			bool checkMat = false;
+			List<BaseFigure> allFigures = TurnControl.Instance.GetAllFigures ().ToList();
+			List<BaseFigure> enemy = new List<BaseFigure> ();
+
+			foreach (BaseFigure bf in allFigures) {
+				if (bf.side != side) {
+					enemy.Add (bf);
+				}
+			}
+
+			foreach (BaseFigure bf in enemy) {
+				bf.ShowVariants (false);
+				if (bf.kill.Contains (this)) {
+					check = true;
+				}
+				bf.ClearVariants ();
+			}
+
+			if (check) {
+				TurnControl.Instance.Checked ();
+			}
+
+		}
 	}
 
 }

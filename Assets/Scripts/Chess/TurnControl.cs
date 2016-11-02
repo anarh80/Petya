@@ -47,4 +47,13 @@ public class TurnControl : MonoBehaviour {
 						activateFigure = null;
 				}
 		}
+
+	public BaseFigure[] GetAllFigures(){
+		return desk.GetComponentsInChildren<BaseFigure> ();
+	}
+
+	public void Checked(){
+		
+	}
+
 }
