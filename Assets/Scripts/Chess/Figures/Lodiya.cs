@@ -18,7 +18,7 @@ public class Lodiya : BaseFigure {
 					if (bf != null) {
 						if (bf.side != side) {
 							if (!kill.Contains (bf)) {
-								if (create)bf.ActivateTarget ();
+								if (create) bf.ActivateTarget ();
 								kill.Add (bf);
 								count++;
 							}
@@ -43,5 +43,6 @@ public class Lodiya : BaseFigure {
 		res.Add (Vector3.left);
 		return res;
 	}
+
 
 }
